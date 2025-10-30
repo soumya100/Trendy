@@ -26,16 +26,16 @@ const NavBar = () => {
   return (
     <div className="flex items-center justify-between py-5 font-medium">
       {/* <img src={assets.logo2} className='w-36' alt="Trendy"/> */}
-      <div className="flex">
+      <Link to={'/'} className="flex">
         <h1 className="logo w-24 italic">TRENDY</h1>
         <div className="w-4 h-4 bg-pink-500 rounded-full animate-pulse" />
-      </div>
+      </Link>
       <ul className="hidden sm:flex gap-5 text-sm text-gray-700">
         {navArray.map((navEl, idx) => (
           <NavLink
             to={navEl.path}
             key={idx}
-            className="flex flex-col items-center gap-1 "
+            className="flex flex-col items-center gap-1"
           >
             <p>{navEl.name}</p>
             <hr className="w-2/4 border-none h-[1.5px] bg-gray-700 hidden" />
