@@ -19,7 +19,7 @@ export default function Drawer({
   return (
     <main
       className={
-        "fixed overflow-hidden scroll-auto z-10 bg-white bg-opacity-25 inset-0 transform ease-in-out" +
+        "fixed overflow-hidden scroll-auto z-10 bg-white bg-opacity-25 inset-0 transform ease-in-out h-screen" +
         (isOpen
           ? " transition-opacity opacity-100 duration-500 translate-x-0  "
           : " transition-all delay-500 opacity-0 translate-x-full  ")

@@ -1,0 +1,61 @@
+{
+   "navlogotext": "TRENDY",
+   "profilemenu":{
+    "profile": "Profile",
+    "orders": "Orders",
+    "logout": "Logout"
+   },
+   "navbarmenu":{
+     "home": "home",
+     "collections": "Collections",
+     "about": "about us",
+     "contact": "contact"
+   },
+    "ourbestsellers": "Our Best Sellers",
+    "explorecollections": "Explore Our Collections",
+    "latestarrivals": "Latest Arrivals",
+    "shopnow": "Shop Now",
+    "latest": "Latest",
+    "latestcollectiondescription": "Discover our latest collection of trendy fashion pieces, carefully curated to keep you ahead of the style curve. From chic apparel to must-have accessories, explore fresh arrivals that embody contemporary design and timeless elegance. Elevate your wardrobe with our newest selections, perfect for any occasion.",
+    "explorecollectionbuttontext": "EXPLORE OUR COLLECTIONS",
+    "best": "Best",
+    "sellers": "Sellers",
+    "bestsellerdescription": "Explore our curated selection of best-selling products that have captured the hearts of our customers. From timeless classics to trending must-haves, these top picks showcase exceptional quality and style. Discover why these favorites stand out and elevate your collection with our most sought-after items.",
+    "firstpolicytitle": "Easy Exchange Policy",
+    "firstpolicydescription":"We offer hassle-free exchange policy",
+    "secondpolicytitle":"Best Quality Products",
+    "secondpolicydescription":"We ensure top quality products for our customers",
+    "thirdpolicytitle":"24/7 Customer Support",
+    "thirdpolicydescription":"Our support team is here to help you anytime",
+    "newslettertitle": "Subscribe now & get 20% off",
+    "newsletterdescription": "Subscribe to our newsletter to get updates on our latest offers!",
+    "subscribebuttontext": "Subscribe",
+    "categoriesinnotfoundpage": {
+        "women": "Women",
+        "men": "Men",
+        "accessories": "Accessories",
+        "newarrivals": "New Arrivals",
+        "sale": "Sale"
+    },
+    "popularcategories": "Popular Categories",
+    "browsecollections": "Browse Collections",
+    "gobackhome": "Go Back Home",
+    "notfoundpagedescription": "Oops! The page you're looking for seems to have wandered off the runway. Let's get you back to browsing our latest collections.",
+    "pagenot": "Page Not",
+    "found": "Found",
+    "page404": "Error 404",
+    "footerdescriptionText": "Stay ahead in style with Trendy - your ultimate destination for the latest fashion trends, curated collections, and unbeatable deals. Elevate your wardrobe today!",
+    "footerLinks":{
+        "delivery" : "Delivery",
+        "privacypolicy" : "Privacy Policy"
+    },
+    "getintouch": "get in touch",
+    "phoneno": "+1-234-567-890",
+    "email": "soumyanandi100@gmail.com",
+    "copyrightyear": "2024",
+    "allrightsreserved": "All Rights Reserved.",
+    "formValidationErrors": {
+        "required": "This field is required",
+        "invalidEmail": "Please enter a valid email address"
+    }
+}

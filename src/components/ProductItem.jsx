@@ -1,12 +1,13 @@
 import React, { useContext } from 'react'
 import { ShopContext } from '../context/ShopContext'
 import { Link } from 'react-router-dom'
+import { routes } from '../Routes'
 
 const ProductItem = ({ id, image, name, price }) => {
   const { currency } = useContext(ShopContext)
 
   return (
-    <Link to={`/product/${id}`} className="text-gray-700 cursor-pointer group duration-300">
+    <Link to={`${routes.product}/${id}`} className="text-gray-700 cursor-pointer group duration-300">
       <div className="overflow-hidden rounded-lg">
         <img
           src={image[0]}

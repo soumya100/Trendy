@@ -1,23 +1,24 @@
 import React, { useMemo } from "react";
 import { assets } from "../assets/assets";
+import text from "../languages/en.json";
 
 const OurPolicy = () => {
   const policies = useMemo(
     () => [
       {
         icon: assets.exchange_icon,
-        title: "Easy Exchange Policy",
-        description: "We offer hassle-free exchange policy",
+        title: text.firstpolicytitle,
+        description: text.firstpolicydescription,
       },
       {
         icon: assets.quality_icon,
-        title: "Best Quality Products",
-        description: "We ensure top quality products for our customers",
+        title: text.secondpolicytitle,
+        description: text.secondpolicydescription,
       },
         {
         icon: assets.support_img,
-        title: "24/7 Customer Support",
-        description: "Our support team is here to help you anytime",
+        title: text.thirdpolicytitle,
+        description: text.thirdpolicydescription
         },
     ],
     []
