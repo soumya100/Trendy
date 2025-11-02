@@ -1,7 +1,7 @@
 /**
  * Page Info Component
  */
-const PageInfo = ({ currentPage, totalPages, totalItems, itemsPerPage }) => {
+const PageInfo = ({ currentPage,totalItems, itemsPerPage }) => {
   const startItem = (currentPage - 1) * itemsPerPage + 1;
   const endItem = Math.min(currentPage * itemsPerPage, totalItems);
   

@@ -43,7 +43,7 @@ const Collection = () => {
        label: `${text.sortoptions.sortby} ${text.sortoptions.hightolabel}`,
       value: text.sortoptions.highlow
     }
-  ])
+  ],[])
 
   const getFilters = (arr) => {
     return arr.map((item) => ({
