@@ -1,61 +1,148 @@
-import React from "react";
-import { assets } from "../assets/assets";
+import { useState, useEffect } from 'react';
 
-export default function Drawer({
-  children,
+const Drawer = ({
   isOpen,
-  setIsOpen,
-  header,
-  extraBackIconClasses = "",
-  backIcon = (
-    <img
-      src={assets.dropdown_icon}
-      className="h-3 w-3 min-w-3 cursor-pointer rotate-180"
-      alt="BackIcon"
-    />
-  ),
-  headerCls='p-4 font-bold text-lg'
-}) {
-  return (
-    <main
-      className={
-        "fixed overflow-hidden scroll-auto z-10 bg-white bg-opacity-25 inset-0 transform ease-in-out h-screen" +
-        (isOpen
-          ? " transition-opacity opacity-100 duration-500 translate-x-0  "
-          : " transition-all delay-500 opacity-0 translate-x-full  ")
+  onClose,
+  position = 'right',
+  size = 'md',
+  backdrop = true,
+  closeOnBackdrop = true,
+  closeOnEsc = true,
+  showCloseButton = true,
+  overlay = true,
+  overlayOpacity = 50,
+  animation = 'slide',
+  header = null,
+  children
+}) => {
+  const [isMounted, setIsMounted] = useState(false);
+  const [isAnimating, setIsAnimating] = useState(false);
+
+  // Handle mounting and animation
+  useEffect(() => {
+    if (isOpen) {
+      setIsMounted(true);
+      setTimeout(() => setIsAnimating(true), 10);
+    } else {
+      setIsAnimating(false);
+      const timer = setTimeout(() => setIsMounted(false), 300);
+      return () => clearTimeout(timer);
+    }
+  }, [isOpen]);
+
+  // Close on escape key
+  useEffect(() => {
+    const handleEsc = (e) => {
+      if (closeOnEsc && e.key === 'Escape' && isOpen) {
+        onClose();
       }
-    >
-      <section
-        className={
-          " w-screen max-w-lg right-0 absolute bg-white h-full shadow-xl delay-400 duration-500 ease-in-out transition-all transform" +
-          (isOpen ? " translate-x-0 " : " translate-x-full ")
+    };
+    if (isOpen) {
+      document.addEventListener('keydown', handleEsc);
+      document.body.style.overflow = 'hidden';
+      return () => {
+        document.removeEventListener('keydown', handleEsc);
+        document.body.style.overflow = 'unset';
+      };
+    }
+  }, [isOpen, closeOnEsc, onClose]);
+
+  if (!isMounted) return null;
+
+  // Size configurations
+  const sizeClasses = {
+    sm: position === 'top' || position === 'bottom' ? 'h-1/4' : 'w-64',
+    md: position === 'top' || position === 'bottom' ? 'h-1/3' : 'w-96',
+    lg: position === 'top' || position === 'bottom' ? 'h-1/2' : 'w-[32rem]',
+    xl: position === 'top' || position === 'bottom' ? 'h-2/3' : 'w-[48rem]',
+    full: position === 'top' || position === 'bottom' ? 'h-full' : 'w-full'
+  };
+
+  // Position configurations
+  const positionClasses = {
+    left: 'left-0 top-0 h-full',
+    right: 'right-0 top-0 h-full',
+    top: 'top-0 left-0 w-full',
+    bottom: 'bottom-0 left-0 w-full'
+  };
+
+  // Animation configurations
+  const getTransformClass = () => {
+    if (animation === 'slide') {
+      if (!isAnimating) {
+        switch (position) {
+          case 'left': return '-translate-x-full';
+          case 'right': return 'translate-x-full';
+          case 'top': return '-translate-y-full';
+          case 'bottom': return 'translate-y-full';
+          default: return '';
         }
+      }
+      return 'translate-x-0 translate-y-0';
+    }
+    return '';
+  };
+
+  const getOpacityClass = () => {
+    if (animation === 'fade') {
+      return isAnimating ? 'opacity-100' : 'opacity-0';
+    }
+    return 'opacity-100';
+  };
+
+  return (
+    <>
+      {/* Backdrop */}
+      {backdrop && overlay && (
+        <div
+          className={`fixed inset-0 bg-black z-40 transition-opacity duration-300`}
+          style={{ opacity: isAnimating ? overlayOpacity / 100 : 0 }}
+          onClick={closeOnBackdrop ? onClose : undefined}
+        />
+      )}
+
+      {/* Drawer */}
+      <div
+        className={`fixed ${positionClasses[position]} ${sizeClasses[size]} bg-white shadow-2xl z-50 transition-all duration-300 ease-in-out transform ${getTransformClass()} ${getOpacityClass()} flex flex-col`}
       >
-        <article className="relative w-screen max-w-lg pb-10 flex flex-col space-y-6 overflow-y-auto h-full">
-          <header className={`p-4 ${headerCls}`}>
-            <div
-              className="flex gap-2 items-center h-full"
-              onClick={() => {
-                setIsOpen(false);
-              }}
-            >
-              <div
-                className={`border-gray-400 p-1 cursor-pointer ${extraBackIconClasses}`}
-              >
-                {backIcon}
-              </div>
+        {/* Header Section */}
+        {(header || showCloseButton) && (
+          <div className="flex items-center justify-between p-4 border-b border-gray-200 shrink-0">
+            {/* Header Content */}
+            <div className="flex-1">
               {header}
             </div>
-          </header>
+            
+            {/* Close button */}
+            {showCloseButton && (
+              <button
+                onClick={onClose}
+                className="p-2 rounded-lg hover:bg-gray-100 transition-colors shrink-0"
+                aria-label="Close drawer"
+              >
+                <svg
+                  className="w-6 h-6 text-gray-600"
+                  fill="none"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            )}
+          </div>
+        )}
+
+        {/* Content */}
+        <div className="flex-1 overflow-y-auto">
           {children}
-        </article>
-      </section>
-      <section
-        className=" w-screen h-full cursor-pointer "
-        onClick={() => {
-          setIsOpen(false);
-        }}
-      ></section>
-    </main>
+        </div>
+      </div>
+    </>
   );
-}
+};
+
+export default Drawer;

@@ -99,7 +99,7 @@ const NavBar = () => {
       </div>
       <Drawer
         isOpen={isVisible}
-        setIsOpen={setIsVisible}
+        onClose={handleHamDrawerClose}
         header={<Logo />}
       >
         <div className="flex flex-col gap-6 px-4">
