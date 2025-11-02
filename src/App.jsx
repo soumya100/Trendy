@@ -10,7 +10,7 @@ import PlaceOrder from './pages/PlaceOrder'
 import Orders from './pages/Orders'
 import NavBar from './components/NavBar'
 import Collection from './pages/Collection'
-import NotFound from './components/NotFound'
+import NotFound from './pages/NotFound'
 import Footer from './components/Footer'
 
 const App = () => {

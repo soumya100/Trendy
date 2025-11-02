@@ -1,6 +1,6 @@
 
 import React from 'react';
-import text from "../languages/en.json";
+import text from "../../languages/en.json";
 
 
 const NewsLetterItemBox = () => {

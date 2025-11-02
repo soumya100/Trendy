@@ -33,9 +33,26 @@
     "categoriesinnotfoundpage": {
         "women": "Women",
         "men": "Men",
+        "kids": "Kids",
         "accessories": "Accessories",
         "newarrivals": "New Arrivals",
         "sale": "Sale"
+    },
+    "typeTitle": "Type", 
+    "types":{
+        "topwear": "Topwear",
+        "bottomwear": "bottomwear",
+        "winterwear" : "Winterwear"
+    },
+    "all" : "All",
+    "sortoptions":{
+        "sortby": "Sort By:",
+        "relevant": "Relevant",
+        "lowhigh": "low-high",
+        "highlow": "high-low",
+        "relevancelabel": "Relevance",
+        "lowhighlabel": "low to high",
+        "hightolabel":"high to low"
     },
     "popularcategories": "Popular Categories",
     "browsecollections": "Browse Collections",
@@ -54,6 +71,8 @@
     "email": "soumyanandi100@gmail.com",
     "copyrightyear": "2024",
     "allrightsreserved": "All Rights Reserved.",
+    "filterstext": "Filters",
+    "categories": "Categories",
     "formValidationErrors": {
         "required": "This field is required",
         "invalidEmail": "Please enter a valid email address"

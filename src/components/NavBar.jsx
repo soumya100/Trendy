@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { assets } from "../assets/assets";
+import { assets } from "../assets/assets.js";
 import { Link, NavLink } from "react-router-dom";
-import Drawer from "../common/Drawer";
+import Drawer from "../common/Drawer.jsx";
 import { routes } from "../Routes/index.js";
 import Logo from "../common/Logo.jsx";
 import text from "../languages/en.json";

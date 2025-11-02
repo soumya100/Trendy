@@ -1,11 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { ShopContext } from '../context/ShopContext';
-import Title from './Title';
+import { ShopContext } from '../../context/ShopContext';
+import Title from '../../common/Title';
 import ProductItem from './ProductItem';
-import Button from '../common/Button';
+import Button from '../../common/Button';
 import { useNavigate } from 'react-router-dom';
-import text from "../languages/en.json";
-import { routes } from '../Routes';
+import text from "../../languages/en.json";
+import { routes } from '../../Routes';
 
 const LatestCollection = () => {
 

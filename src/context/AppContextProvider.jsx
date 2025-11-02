@@ -1,5 +1,5 @@
 import React from 'react'
-import ShopContextProvider from './ShopContext'
+import ShopContextProvider from './ShopContextProvider'
 
 const AppContextProvider = ({children}) => {
   return (

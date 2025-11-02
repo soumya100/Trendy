@@ -1,6 +1,6 @@
 import React from "react";
-import { assets } from "../assets/assets";
-import text from "../languages/en.json";
+import { assets } from "../../assets/assets";
+import text from "../../languages/en.json";
 
 const Hero = () => {
   return (

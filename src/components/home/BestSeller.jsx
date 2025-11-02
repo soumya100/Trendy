@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { ShopContext } from '../context/ShopContext';
-import Title from './Title';
+import { ShopContext } from '../../context/ShopContext';
+import Title from '../../common/Title';
 import ProductItem from './ProductItem';
-import text from "../languages/en.json";
+import text from "../../languages/en.json";
 
 const BestSeller = () => {
     const {products} = useContext(ShopContext);

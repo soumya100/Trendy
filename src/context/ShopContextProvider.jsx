@@ -1,0 +1,21 @@
+import { ShopContext } from "./ShopContext";
+import { products } from "../assets/assets";
+
+const ShopContextProvider = ({ children }) => {
+  const currency = "$";
+  const delivery_fee = 5.0;
+
+  const value = {
+    products,
+    currency,
+    delivery_fee,
+  };
+
+  return (
+    <ShopContext.Provider value={value}>
+      {children}
+    </ShopContext.Provider>
+  );
+};
+
+export default ShopContextProvider;
