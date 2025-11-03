@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { ShopContext } from "../context/ShopContext";
 import text from "../languages/en.json";
 import FilterCollection from "../components/collection/FilterCollection";
@@ -11,7 +11,19 @@ const Collection = () => {
   const { products } = React.useContext(ShopContext);
 
   const [showFilter, setShowFilter] = React.useState(false);
-   const [currentPage, setCurrentPage] = React.useState(1);
+  const [currentPage, setCurrentPage] = React.useState(1);
+  const [filterProducts, setFilterProducts] = React.useState(products);
+  const [category, setCategory] = React.useState([]);
+  const [subCategory, setSubCategory] = React.useState([]);
+
+  //function to handle filter by category
+  const handleToggle = (e, setterState, state) => {
+    if (state.includes(e.target.value)) {
+      setterState((prev) => prev.filter((item) => item !== e.target.value));
+    } else {
+      setterState((prev) => [...prev, e.target.value]);
+    }
+  };
 
   //category filter array
   const categoryArray = React.useMemo(
@@ -30,20 +42,23 @@ const Collection = () => {
   );
 
   //sort by array
-  const sortOptions= React.useMemo(()=>[
-    {
-      label: `${text.sortoptions.sortby} ${text.sortoptions.relevancelabel}`,
-      value: text.sortoptions.relevant
-    },
-    {
-       label: `${text.sortoptions.sortby} ${text.sortoptions.lowhighlabel}`,
-      value: text.sortoptions.lowhigh
-    },
-    {
-       label: `${text.sortoptions.sortby} ${text.sortoptions.hightolabel}`,
-      value: text.sortoptions.highlow
-    }
-  ],[])
+  const sortOptions = React.useMemo(
+    () => [
+      {
+        label: `${text.sortoptions.sortby} ${text.sortoptions.relevancelabel}`,
+        value: text.sortoptions.relevant,
+      },
+      {
+        label: `${text.sortoptions.sortby} ${text.sortoptions.lowhighlabel}`,
+        value: text.sortoptions.lowhigh,
+      },
+      {
+        label: `${text.sortoptions.sortby} ${text.sortoptions.hightolabel}`,
+        value: text.sortoptions.highlow,
+      },
+    ],
+    []
+  );
 
   const getFilters = (arr) => {
     return arr.map((item) => ({
@@ -51,49 +66,85 @@ const Collection = () => {
       value: item,
     }));
   };
-  
 
   //function to show filters in mobile
-  const handleShowFilter=()=>{
-    setShowFilter(prev=> !prev)
-  }
+  const handleShowFilter = () => {
+    setShowFilter((prev) => !prev);
+  };
+
+  //function to apply filter
+  const applyFilter = () => {
+    const hasCategoryFilter = category.length > 0;
+    const hasSubCategoryFilter = subCategory.length > 0;
+
+    // If no filters applied, show all products
+    if (!hasCategoryFilter && !hasSubCategoryFilter) {
+      setFilterProducts(products);
+      return;
+    }
+
+    // Filter once
+    const filtered = products.filter((item) => {
+      const categoryMatch =
+        !hasCategoryFilter || category.includes(item.category);
+      const subCategoryMatch =
+        !hasSubCategoryFilter || subCategory.includes(item.subCategory);
+      return categoryMatch && subCategoryMatch;
+    });
+
+    setFilterProducts(filtered);
+  };
+
+  useEffect(() => {
+    applyFilter();
+  }, [category, subCategory]);
 
   return (
     <div className="flex flex-col sm:flex-row gap-1 sm:gap-10 pt-10 border-t">
       <div className="min-w-60">
-        <p onClick={handleShowFilter} className="my-2 text-xl flex items-center cursor-pointer gap-2">
+        <p
+          onClick={handleShowFilter}
+          className="my-2 text-xl flex items-center cursor-pointer gap-2"
+        >
           {text.filterstext.toUpperCase()}
-          <img className={`h-3 sm:hidden ${showFilter ? 'rotate-90' : ''}`} src={assets.dropdown_icon} alt="filter dropdown" />
+          <img
+            className={`h-3 sm:hidden ${showFilter ? "rotate-90" : ""}`}
+            src={assets.dropdown_icon}
+            alt="filter dropdown"
+          />
         </p>
         {/* Category filter */}
         <FilterCollection
           title={text.categories.toUpperCase()}
           filters={getFilters(categoryArray)}
           showFilter={showFilter}
+          handleChange={(e) => handleToggle(e, setCategory, category)}
         />
         <FilterCollection
           title={text.typeTitle.toUpperCase()}
           filters={getFilters(typesArray)}
           showFilter={showFilter}
-          extraContainerCls={'!my-5'}
+          extraContainerCls={"!my-5"}
+          handleChange={(e) => handleToggle(e, setSubCategory, subCategory)}
         />
       </div>
       {/* Right side */}
       <div className="flex-1">
         <div className="flex justify-between text-base sm:text-2xl mb-4">
-          <Title text1={text.all.toUpperCase()} text2={text.navbarmenu.collections.toUpperCase()} />
-          <ProductSort 
-            sortOptions={sortOptions}
+          <Title
+            text1={text.all.toUpperCase()}
+            text2={text.navbarmenu.collections.toUpperCase()}
           />
+          <ProductSort sortOptions={sortOptions} />
         </div>
-      <div>
-      <PaginatedGallery 
-        data={products}
+        <div>
+          <PaginatedGallery
+            data={filterProducts}
             itemsPerPage={8}
             page={currentPage}
             onPageChangeCallback={setCurrentPage}
-      />
-      </div>
+          />
+        </div>
       </div>
     </div>
   );

@@ -41,7 +41,7 @@
     "typeTitle": "Type", 
     "types":{
         "topwear": "Topwear",
-        "bottomwear": "bottomwear",
+        "bottomwear": "Bottomwear",
         "winterwear" : "Winterwear"
     },
     "all" : "All",

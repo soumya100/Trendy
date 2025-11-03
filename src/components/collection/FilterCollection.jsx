@@ -4,7 +4,8 @@ const FilterCollection = ({
     title,
     filters,
     showFilter,
-    extraContainerCls
+    extraContainerCls,
+    handleChange
 }) => {
   return (
         <div
@@ -20,12 +21,13 @@ const FilterCollection = ({
               <p key={idx} className="flex gap-2">
                 <label
                   key={idx}
-                  className="flex items-center gap-2 cursor-pointer"
+                  className="flex items-center gap-2 cursor-pointer select-none"
                 >
                   <input
-                    className="w-3"
+                    className="w-3 cursor-pointer"
                     type="checkbox"
                     value={category.value}
+                    onChange={handleChange}
                   />
                   {category.label}
                 </label>

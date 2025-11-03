@@ -102,7 +102,7 @@ const PaginatedGallery = ({
             <React.Fragment key={item._id || index}>
               {renderItem ? renderItem(item) : (
                 <div className="group cursor-pointer">
-                  <div className="bg-white aspect-square mb-2 sm:mb-3 flex items-center justify-center transition-colors">
+                  <div className="bg-white aspect-square mb-2 sm:mb-3 flex items-center justify-center transition-colors w-full">
                     <ProductItem id={item._id} image={item.image} name={item.name} price={item.price}/>
                   </div>
                 </div>
