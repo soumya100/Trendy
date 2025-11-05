@@ -1,6 +1,6 @@
 import React from "react";
 
-const ProductSort = ({ sortOptions }) => {
+const ProductSort = ({ sortOptions, sortType, handleSortTypeChange }) => {
   return (
     <div className="relative inline-block">
       <select
@@ -8,11 +8,8 @@ const ProductSort = ({ sortOptions }) => {
                bg-white px-4 py-2 pr-10 rounded-md shadow-sm 
                hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-300
                transition-all cursor-pointer"
-        defaultValue=""
+        value={sortType} onChange={handleSortTypeChange}
       >
-        <option disabled value="">
-          Sort by
-        </option>
         {sortOptions.map((option) => (
           <option key={option.value} value={option.value}>
             {option.label}
