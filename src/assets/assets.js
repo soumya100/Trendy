@@ -74,6 +74,7 @@ import star_dull_icon from './star_dull_icon.png'
 import star_icon from './star_icon.png'
 import stripe_logo from './stripe_logo.png'
 import support_img from './support_img.png'
+import text from '../languages/en.json'
 
 export const assets = {
 right_arrow_icon,
@@ -722,4 +723,64 @@ export const products = [
         bestseller: false
     }
 
+]
+
+const getImageIndex=(searchBy, imageType)=>{
+    switch (searchBy){
+        case 'category': 
+            return products.findIndex(item => item.category.toLowerCase() === imageType.toLowerCase());
+            case 'subcategory':
+            return products.findIndex(item => item.subCategory.toLowerCase() === imageType.toLowerCase());
+    }
+}
+
+export const searchData=[
+   { image: products[products.length-2].image,
+    name: `${text.latest} ${text.navbarmenu.collections}`,
+    id: 'latestCollections',
+    href: '',
+    description: `${text.explorecollections}`
+   },
+   {
+    image: products[3].image,
+    name: 'Search By Relevance',
+    href: '',
+    query: 'searchByRelevance'
+   },
+   {
+    image: products[getImageIndex('category','men')].image[1],
+    name: 'Search For Men',
+    href: '',
+    query: 'forMen',
+   },
+   {
+    image: products[getImageIndex('category','women')].image,
+    name: 'Search For Women',
+    href: '',
+    query: 'forWomen',
+   },
+   {
+    image: products[getImageIndex('category','kids')].image,
+    name: 'Search For Kids',
+    href: '',
+    query: 'forKids',
+   },
+   {
+    image: products[getImageIndex('subcategory', 'topwear')].image,
+    name: 'Search Top Wears',
+    href: '',
+    query: 'topWears',
+   },
+   {
+    image: products[getImageIndex('subcategory', 'bottomwear')].image,
+    name: 'Search Bottom Wears',
+    href: '',
+    query: 'bottomWears',
+   },
+ {
+    image: products[getImageIndex('subcategory', 'winterwear')].image,
+    name: 'Search Winter Wears',
+    href: '',
+    query: 'winterWears',
+   },
 ]

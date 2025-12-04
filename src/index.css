@@ -142,3 +142,74 @@ a.active p{
 .btn-53:hover span:nth-child(6) {
   transition-delay: 0.5s;
 }
+
+/* Ultra-Premium Overlay Animations */
+@keyframes ultraOverlayIn {
+  0% {
+    opacity: 0;
+    backdrop-filter: blur(0px);
+    background: rgba(0, 0, 0, 0.1);
+  }
+  100% {
+    opacity: 1;
+    backdrop-filter: blur(8px);
+    background: rgba(0, 0, 0, 0.45);
+  }
+}
+
+@keyframes ultraOverlayOut {
+  0% {
+    opacity: 1;
+    backdrop-filter: blur(8px);
+  }
+  100% {
+    opacity: 0;
+    backdrop-filter: blur(0px);
+  }
+}
+
+.animate-ultra-overlay {
+  animation: ultraOverlayIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-ultra-overlay-out {
+  animation: ultraOverlayOut 0.28s cubic-bezier(0.33, 1, 0.68, 1) forwards;
+}
+
+/* Ultra-Premium Panel Animations */
+@keyframes ultraPanelIn {
+  0% {
+    opacity: 0;
+    transform: translateY(30px) scale(0.92) rotateX(3deg);
+    filter: blur(4px);
+  }
+  60% {
+    opacity: 1;
+    transform: translateY(-4px) scale(1.015) rotateX(0deg);
+    filter: blur(0px);
+  }
+  100% {
+    transform: translateY(0) scale(1) rotateX(0deg);
+  }
+}
+
+@keyframes ultraPanelOut {
+  0% {
+    opacity: 1;
+    transform: translateY(0px) scale(1);
+    filter: blur(0px);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(10px) scale(0.95);
+    filter: blur(4px);
+  }
+}
+
+.animate-ultra-panel {
+  animation: ultraPanelIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-ultra-panel-out {
+  animation: ultraPanelOut 0.28s cubic-bezier(0.33, 1, 0.68, 1) forwards;
+}

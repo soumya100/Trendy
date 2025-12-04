@@ -1,12 +1,13 @@
-import React from 'react'
-import ShopContextProvider from './ShopContextProvider'
+import React from "react";
+import ShopContextProvider from "./ShopContextProvider";
+import { ModalProvider } from "./DialogContext";
 
-const AppContextProvider = ({children}) => {
+const AppContextProvider = ({ children }) => {
   return (
     <ShopContextProvider>
-      {children}
+      <ModalProvider>{children}</ModalProvider>
     </ShopContextProvider>
-  )
-}
+  );
+};
 
-export default AppContextProvider
+export default AppContextProvider;
