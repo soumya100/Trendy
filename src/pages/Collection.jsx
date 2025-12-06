@@ -1,98 +1,148 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
+
 import { List } from "react-window";
-import { assets } from "../assets/assets";
+import { assets, products as productList } from "../assets/assets"; // FIXED IMPORT
+
 import PaginatedGallery from "../common/pagination";
 import Title from "../common/Title";
 import FilterCollection from "../components/collection/FilterCollection";
 import ProductSort from "../components/collection/ProductSort";
+
 import { ShopContext } from "../context/ShopContext";
-import text from "../languages/en.json";
+import text from "../languages/en.json"; // FIXED IMPORT
+import { useSearchParams } from "react-router-dom";
 
 export default function Collection() {
-  const { products } = React.useContext(ShopContext);
+  const { products } = React.useContext(ShopContext); // Your products come from context
 
   const [category, setCategory] = useState([]);
   const [subCategory, setSubCategory] = useState([]);
-  const [sortType, setSortType] = useState(text.sortoptions.relevant);
-  const [showFilter, setShowFilter] = useState(false); // ✅ restore mobile filter toggle
+  const [sortType, setSortType] = useState("relevant");
+  const [showFilter, setShowFilter] = useState(false);
 
-  // ✅ Memo filters
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  /* ------------------------------
+      UPDATE URL WHEN FILTER CHANGES
+  ------------------------------ */
+  const updateURL = useCallback(
+    (catList, subList, sort) => {
+      const params = {};
+
+      if (catList.length) params.category = catList.join(",");
+      if (subList.length) params.subCategory = subList.join(",");
+      if (sort) params.sort = sort;
+
+      setSearchParams(params);
+    },
+    [setSearchParams]
+  );
+
+  /* ------------------------------
+      FILTER OPTIONS
+  ------------------------------ */
   const categoryFilters = useMemo(
-    () =>
-      [
-        text.categoriesinnotfoundpage.men,
-        text.categoriesinnotfoundpage.women,
-        text.categoriesinnotfoundpage.kids,
-      ].map((item) => ({ label: item, value: item })),
+    () => [
+      { label: text.categoriesinnotfoundpage.men, value: "men" },
+      { label: text.categoriesinnotfoundpage.women, value: "women" },
+      { label: text.categoriesinnotfoundpage.kids, value: "kids" },
+    ],
     []
   );
 
   const typeFilters = useMemo(
-    () =>
-      [text.types.topwear, text.types.bottomwear, text.types.winterwear].map(
-        (item) => ({ label: item, value: item })
-      ),
+    () => [
+      { label: text.types.topwear, value: "topwear" },
+      { label: text.types.bottomwear, value: "bottomwear" },
+      { label: text.types.winterwear, value: "winterwear" },
+    ],
     []
   );
 
-  //sort options
-  const sortOptions = React.useMemo(() => {
-    const { sortoptions } = text;
+  const sortOptions = [
+    { label: text.sortoptions.relevancelabel, value: "relevant" },
+    { label: text.sortoptions.lowhighlabel, value: "lowhigh" },
+    { label: text.sortoptions.hightolabel, value: "highlow" },
+  ];
 
-    return [
-      {
-        label: `${sortoptions.sortby} ${sortoptions.relevancelabel}`,
-        value: sortoptions.relevant,
-      },
-      {
-        label: `${sortoptions.sortby} ${sortoptions.lowhighlabel}`,
-        value: sortoptions.lowhigh,
-      },
-      {
-        label: `${sortoptions.sortby} ${sortoptions.hightolabel}`,
-        value: sortoptions.highlow,
-      },
-    ];
-  }, [text.sortoptions]);
+  /* ------------------------------
+      TOGGLE FILTER
+  ------------------------------ */
+  const toggleFilter = useCallback(
+    (value, setter, type) => {
+      const v = value.toLowerCase();
 
-  // Toggle filter
-  const toggleFilter = useCallback((value, setter) => {
-    setter((prev) =>
-      prev.includes(value) ? prev.filter((x) => x !== value) : [...prev, value]
-    );
-  }, []);
+      setter((prev) => {
+        const newList = prev.includes(v)
+          ? prev.filter((x) => x !== v)
+          : [...prev, v];
 
-  // Filter + Sort
+        updateURL(
+          type === "category" ? newList : category,
+          type === "sub" ? newList : subCategory,
+          sortType
+        );
+
+        return newList;
+      });
+    },
+    [category, subCategory, sortType, updateURL]
+  );
+
+  /* ------------------------------
+      FILTER + SORT PRODUCTS
+  ------------------------------ */
   const filteredProducts = useMemo(() => {
     let result = products;
 
     if (category.length) {
-      result = result.filter((p) => category.includes(p.category));
+      result = result.filter((p) =>
+        category.includes(p.category.toLowerCase())
+      );
     }
 
     if (subCategory.length) {
-      result = result.filter((p) => subCategory.includes(p.subCategory));
+      result = result.filter((p) =>
+        subCategory.includes(p.subCategory.toLowerCase())
+      );
     }
 
-    if (sortType === text.sortoptions.lowhigh) {
+    if (sortType === "lowhigh") {
       result = [...result].sort((a, b) => a.price - b.price);
-    } else if (sortType === text.sortoptions.highlow) {
+    } else if (sortType === "highlow") {
       result = [...result].sort((a, b) => b.price - a.price);
     }
 
     return result;
   }, [products, category, subCategory, sortType]);
 
-  // Reset page on filter change
+  /* ------------------------------
+      URL → STATE SYNC
+  ------------------------------ */
+  useEffect(() => {
+    const cat = searchParams.get("category");
+    const sub = searchParams.get("subCategory");
+    const sort = searchParams.get("sort");
+
+    setCategory(cat ? cat.split(",").map((x) => x.toLowerCase()) : []);
+    setSubCategory(sub ? sub.split(",").map((x) => x.toLowerCase()) : []);
+    if (sort) setSortType(sort);
+  }, [searchParams]);
+
+  /* ------------------------------
+      CLOSE FILTER ON CHANGE (MOBILE)
+  ------------------------------ */
   useEffect(() => {
     setShowFilter(false);
   }, [category, subCategory, sortType]);
 
+  /* ------------------------------
+      RENDER
+  ------------------------------ */
   return (
     <div className="flex flex-col sm:flex-row gap-1 sm:gap-10 pt-10 border-t">
-      {/* Left Filter Sidebar */}
+      {/* LEFT FILTER */}
       <div className="min-w-60">
-        {/* Mobile Filter Toggle Button */}
         <p
           onClick={() => setShowFilter((prev) => !prev)}
           className="my-2 text-xl flex items-center cursor-pointer gap-2 sm:hidden"
@@ -103,28 +153,33 @@ export default function Collection() {
               showFilter ? "rotate-90" : ""
             }`}
             src={assets.dropdown_icon}
-            alt="toggle filters"
+            alt=""
           />
         </p>
 
-        {/* Desktop always visible, Mobile collapsible */}
         <div className={`${showFilter ? "block" : "hidden"} sm:block`}>
           <FilterCollection
             title={text.categories.toUpperCase()}
             filters={categoryFilters}
-            handleChange={(e) => toggleFilter(e.target.value, setCategory)}
+            selected={category}
+            handleChange={(e) =>
+              toggleFilter(e.target.value, setCategory, "category")
+            }
           />
 
           <FilterCollection
             title={text.typeTitle.toUpperCase()}
             filters={typeFilters}
+            selected={subCategory} 
             extraContainerCls={"!my-5"}
-            handleChange={(e) => toggleFilter(e.target.value, setSubCategory)}
+            handleChange={(e) =>
+              toggleFilter(e.target.value, setSubCategory, "sub")
+            }
           />
         </div>
       </div>
 
-      {/* Right Content */}
+      {/* RIGHT CONTENT */}
       <div className="flex-1">
         <div className="flex justify-between text-base sm:text-2xl mb-4">
           <Title
@@ -135,32 +190,28 @@ export default function Collection() {
           <ProductSort
             sortType={sortType}
             sortOptions={sortOptions}
-            handleSortTypeChange={(e) => setSortType(e.target.value)}
+            handleSortTypeChange={(e) => {
+              const newSort = e.target.value;
+              setSortType(newSort);
+              updateURL(category, subCategory, newSort);
+            }}
           />
         </div>
 
-        {/* Product List with Virtualization for large data */}
         {filteredProducts.length > 200 ? (
           <List
             height={600}
             itemCount={filteredProducts.length}
-            itemSize={420} // adjust to match your product card height
-            width={"100%"}
+            itemSize={420}
+            width="100%"
           >
             {({ index, style }) => (
               <div style={style} className="p-2">
-                {/* Use the same component you use normally inside PaginatedGallery */}
-                {/* just render one product tile here */}
-                {(() => {
-                  const product = filteredProducts[index];
-                  return (
-                    <PaginatedGallery
-                      data={[product]}
-                      itemsPerPage={1}
-                      disablePagination
-                    />
-                  );
-                })()}
+                <PaginatedGallery
+                  data={[filteredProducts[index]]}
+                  itemsPerPage={1}
+                  disablePagination
+                />
               </div>
             )}
           </List>

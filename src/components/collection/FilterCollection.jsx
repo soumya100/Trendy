@@ -1,41 +1,39 @@
-import React from 'react'
+import React from "react";
 
-const FilterCollection = ({
-    title,
-    filters,
-    showFilter,
-    extraContainerCls,
-    handleChange
-}) => {
+export default function FilterCollection({
+  title,
+  filters = [],
+  selected = [],
+  handleChange,
+  extraContainerCls = ""
+}) {
   return (
-        <div
-          className={`border border-gray-300 pl-5 py-3 mt-6 ${
-            showFilter ? "block" : "hidden"
-          } sm:block ${extraContainerCls}`}
-        >
-          <p className="font-medium text-sm mb-3">
-            {title}
-          </p>
-          <div className="flex flex-col gap-2 text-sm font-light text-gray-700">
-            {filters.map((category, idx) => (
-              <p key={idx} className="flex gap-2">
-                <label
-                  key={idx}
-                  className="flex items-center gap-2 cursor-pointer select-none"
-                >
-                  <input
-                    className="w-3 cursor-pointer"
-                    type="checkbox"
-                    value={category.value}
-                    onChange={handleChange}
-                  />
-                  {category.label}
-                </label>
-              </p>
-            ))}
-          </div>
-        </div>
-  )
-}
+    <div className={`my-4 ${extraContainerCls}`}>
+      <h3 className="font-semibold text-lg mb-2">{title}</h3>
 
-export default FilterCollection
+      <div className="flex flex-col gap-2">
+        {filters.map((item) => {
+          const value = item.value.toLowerCase(); // ensure consistency
+          const isChecked = selected.includes(value);
+
+          return (
+            <label
+              key={value}
+              className="flex items-center gap-2 cursor-pointer select-none"
+            >
+              <input
+                type="checkbox"
+                value={value}
+                checked={isChecked}            // ✔ controlled checkbox
+                onChange={handleChange}        // ✔ updates state + URL
+                className="h-4 w-4 cursor-pointer"
+              />
+
+              <span className="text-sm">{item.label}</span>
+            </label>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
