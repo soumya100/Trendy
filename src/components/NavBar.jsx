@@ -77,7 +77,7 @@ const NavBar = () => {
             <NavLink
               to={navEl.path}
               key={idx}
-              className="flex flex-col items-center gap-1"
+              className="flex flex-col items-center gap-1 hover:font-semibold"
             >
               <p>{navEl.name.toUpperCase()}</p>
               <hr className="w-2/4 border-none h-[1.5px] bg-gray-700 hidden" />
