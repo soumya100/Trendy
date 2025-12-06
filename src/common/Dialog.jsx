@@ -179,7 +179,7 @@ export default function Dialog({
             <button
               aria-label="Close dialog"
               onClick={closeWithAnimation}
-              className="ml-3 p-2 rounded-md hover:bg-slate-100 transition"
+              className="ml-3 p-2 rounded-md hover:bg-slate-100 transition cursor-pointer"
             >
               ✕
             </button>

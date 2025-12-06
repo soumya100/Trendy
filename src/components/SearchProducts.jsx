@@ -1,15 +1,24 @@
-import { Fragment, useContext, useState } from "react";
-import { ShopContext } from "../context/ShopContext";
-import CustomInputField from "../common/InputSearchField";
+import { useContext, useState } from "react";
 import { searchData } from "../assets/assets";
+import CustomInputField from "../common/InputSearchField";
+import { ShopContext } from "../context/ShopContext";
+import { redirect, useNavigate } from "react-router-dom";
 
-const SearchProducts = ({ searchRef }) => {
+const SearchProducts = ({ searchRef, closeModal }) => {
   const { products } = useContext(ShopContext);
   const [searchProducts, setSearchProducts] = useState("");
+  const navigate=useNavigate()
 
+  //function to handle search products
   const handleChange = (e) => {
     setSearchProducts(e.target.value);
   };
+
+  //function to handle redirection to a page
+  const handleRedirect=(link)=>{
+    navigate(link)
+    closeModal()
+  }
 
   return (
     <div className="w-full max-h-full flex flex-col gap-4 overFlow-x-none">
@@ -40,6 +49,7 @@ const SearchProducts = ({ searchRef }) => {
           animate-fade-slide
         "
             style={{ animationDelay: `${idx * 0.05}s` }}
+            onClick={()=>handleRedirect(item.href)}
           >
             {/* Image Wrapper */}
             <div
@@ -47,8 +57,7 @@ const SearchProducts = ({ searchRef }) => {
           w-16 h-16 rounded-xl bg-gray-50 
           flex items-center justify-center overflow-hidden
           shadow-inner
-        "
-            >
+        ">
               <img
                 src={item.image}
                 alt={item.name}

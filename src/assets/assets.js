@@ -737,50 +737,36 @@ const getImageIndex=(searchBy, imageType)=>{
 export const searchData=[
    { image: products[products.length-2].image,
     name: `${text.latest} ${text.navbarmenu.collections}`,
-    id: 'latestCollections',
-    href: '',
-    description: `${text.explorecollections}`
-   },
-   {
-    image: products[3].image,
-    name: 'Search By Relevance',
-    href: '',
-    query: 'searchByRelevance'
+    href: '/collection',
    },
    {
     image: products[getImageIndex('category','men')].image[1],
-    name: 'Search For Men',
-    href: '',
-    query: 'forMen',
+    name: `${text.sortoptions.search} ${text.sortoptions.for} ${text.categoriesinnotfoundpage.men}`,
+    href: '/collection?category=men'
    },
    {
-    image: products[getImageIndex('category','women')].image,
-    name: 'Search For Women',
-    href: '',
-    query: 'forWomen',
+    image: products[4].image,
+    name: `${text.sortoptions.search} ${text.sortoptions.for} ${text.categoriesinnotfoundpage.women}`,
+    href: '/collection?category=women',
    },
    {
     image: products[getImageIndex('category','kids')].image,
-    name: 'Search For Kids',
-    href: '',
-    query: 'forKids',
+    name: `${text.sortoptions.search} ${text.sortoptions.for} ${text.categoriesinnotfoundpage.kids}`,
+    href: '/collection?category=kids',
    },
    {
     image: products[getImageIndex('subcategory', 'topwear')].image,
-    name: 'Search Top Wears',
-    href: '',
-    query: 'topWears',
+    name: `${text.sortoptions.search} ${text.types.topwear}`,
+    href: '/collection?subCategory=topWear',
    },
    {
     image: products[getImageIndex('subcategory', 'bottomwear')].image,
-    name: 'Search Bottom Wears',
-    href: '',
-    query: 'bottomWears',
+    name: `${text.sortoptions.search} ${text.types.bottomwear}`,
+    href: '/collection?subCategory=bottomWear'
    },
  {
     image: products[getImageIndex('subcategory', 'winterwear')].image,
-    name: 'Search Winter Wears',
-    href: '',
-    query: 'winterWears',
+    name: `${text.sortoptions.search} ${text.types.winterwear}`,
+    href: '/collection?subCategory=winterWear',
    },
 ]

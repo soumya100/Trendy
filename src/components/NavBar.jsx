@@ -11,7 +11,7 @@ import SearchProducts from "./SearchProducts.jsx";
 const NavBar = () => {
   const [scrolled, setScrolled] = React.useState(false);
   const [isVisible, setIsVisible] = React.useState(false);
-  const { openModal } = useModal();
+  const { openModal, closeModal } = useModal();
   const searchRef = React.useRef(null);
 
   React.useEffect(() => {
@@ -48,12 +48,12 @@ const NavBar = () => {
     openModal({
       title: "Search Products",
       content: (
-       <SearchProducts searchRef={searchRef}/>
+       <SearchProducts searchRef={searchRef} closeModal={closeModal}/>
       ),
       footerActions: ({ close }) => (
         <button
           onClick={close}
-          className="px-4 py-2 bg-black text-white rounded"
+          className="px-4 py-2 bg-black text-white rounded cursor-pointer"
         >
           Close
         </button>
@@ -84,7 +84,7 @@ const NavBar = () => {
             </NavLink>
           ))}
         </ul>
-        <div className="flex items-center gap-6">
+        <div className="flex items-center gap-3 sm:gap-6">
           <div
             className="hover:bg-slate-200 p-2 rounded-full cursor-pointer"
             onClick={openSearchModal}

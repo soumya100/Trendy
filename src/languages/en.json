@@ -40,9 +40,9 @@
     },
     "typeTitle": "Type", 
     "types":{
-        "topwear": "Topwear",
-        "bottomwear": "Bottomwear",
-        "winterwear" : "Winterwear"
+        "topwear": "Topwears",
+        "bottomwear": "Bottomwears",
+        "winterwear" : "Winterwears"
     },
     "all" : "All",
     "sortoptions":{
@@ -52,7 +52,10 @@
         "highlow": "high-low",
         "relevancelabel": "Relevance",
         "lowhighlabel": "low to high",
-        "hightolabel":"high to low"
+        "hightolabel":"high to low",
+        "search": "Search",
+        "by": "By",
+        "for": "For"
     },
     "popularcategories": "Popular Categories",
     "browsecollections": "Browse Collections",

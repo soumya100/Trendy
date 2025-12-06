@@ -103,7 +103,7 @@ const Drawer = ({
 
       {/* Drawer */}
       <div
-        className={`fixed ${positionClasses[position]} ${sizeClasses[size]} bg-white shadow-2xl z-50 transition-all duration-300 ease-in-out transform ${getTransformClass()} ${getOpacityClass()} flex flex-col`}
+        className={`fixed ${positionClasses[position]} ${sizeClasses[size]} bg-white shadow-2xl z-50 transition-all duration-300 ease-in-out transform ${getTransformClass()} ${getOpacityClass()} flex flex-col w-full sm:w-1/2`}
       >
         {/* Header Section */}
         {(header || showCloseButton) && (
@@ -117,7 +117,7 @@ const Drawer = ({
             {showCloseButton && (
               <button
                 onClick={onClose}
-                className="p-2 rounded-lg hover:bg-gray-100 transition-colors shrink-0"
+                className="p-2 rounded-lg hover:bg-gray-100 transition-colors shrink-0 cursor-pointer"
                 aria-label="Close drawer"
               >
                 <svg
