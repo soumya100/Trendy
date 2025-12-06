@@ -741,32 +741,32 @@ export const searchData=[
    },
    {
     image: products[getImageIndex('category','men')].image[1],
-    name: `${text.sortoptions.search} ${text.sortoptions.for} ${text.categoriesinnotfoundpage.men}`,
+    name: `${text.categoriesinnotfoundpage.men} ${text.navbarmenu.collections}`,
     href: '/collection?category=men'
    },
    {
     image: products[4].image,
-    name: `${text.sortoptions.search} ${text.sortoptions.for} ${text.categoriesinnotfoundpage.women}`,
+    name: `${text.categoriesinnotfoundpage.women} ${text.navbarmenu.collections}`,
     href: '/collection?category=women',
    },
    {
     image: products[getImageIndex('category','kids')].image,
-    name: `${text.sortoptions.search} ${text.sortoptions.for} ${text.categoriesinnotfoundpage.kids}`,
+    name: `${text.categoriesinnotfoundpage.kids} ${text.navbarmenu.collections}`,
     href: '/collection?category=kids',
    },
    {
     image: products[getImageIndex('subcategory', 'topwear')].image,
-    name: `${text.sortoptions.search} ${text.types.topwear}`,
+    name: `${text.types.topwear} ${text.navbarmenu.collections}`,
     href: '/collection?subCategory=topWear',
    },
    {
     image: products[getImageIndex('subcategory', 'bottomwear')].image,
-    name: `${text.sortoptions.search} ${text.types.bottomwear}`,
+    name: `${text.types.bottomwear} ${text.navbarmenu.collections}`,
     href: '/collection?subCategory=bottomWear'
    },
  {
     image: products[getImageIndex('subcategory', 'winterwear')].image,
-    name: `${text.sortoptions.search} ${text.types.winterwear}`,
+    name: `${text.types.winterwear} ${text.navbarmenu.collections}`,
     href: '/collection?subCategory=winterWear',
    },
 ]

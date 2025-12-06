@@ -181,7 +181,7 @@ export default function Collection() {
 
       {/* RIGHT CONTENT */}
       <div className="flex-1">
-        <div className="flex justify-between text-base sm:text-2xl mb-4">
+        <div className="flex justify-between text-sm sm:text-2xl mb-4 items-center">
           <Title
             text1={text.all.toUpperCase()}
             text2={text.navbarmenu.collections.toUpperCase()}
