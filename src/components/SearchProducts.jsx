@@ -1,24 +1,41 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { searchData } from "../assets/assets";
 import CustomInputField from "../common/InputSearchField";
 import { ShopContext } from "../context/ShopContext";
-import { redirect, useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 const SearchProducts = ({ searchRef, closeModal }) => {
   const { products } = useContext(ShopContext);
   const [searchProducts, setSearchProducts] = useState("");
-  const navigate=useNavigate()
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
 
-  //function to handle search products
+  /* ----------------------------------------------------------
+      READ SEARCH QUERY FROM URL PARAMS
+  ---------------------------------------------------------- */
+  useEffect(() => {
+    const q = searchParams.get("search");
+    if (q) setSearchProducts(q);
+  }, [searchParams]);
+
+  /* ----------------------------------------------------------
+      HANDLE INPUT CHANGE
+  ---------------------------------------------------------- */
   const handleChange = (e) => {
-    setSearchProducts(e.target.value);
+    const value = e.target.value;
+    setSearchProducts(value);
+
+    // (Optional) LIVE sync search into URL without redirecting:
+    // navigate(`?search=${value}`, { replace: true });
   };
 
-  //function to handle redirection to a page
-  const handleRedirect=(link)=>{
-    navigate(link)
-    closeModal()
-  }
+  /* ----------------------------------------------------------
+      REDIRECT TO URL AND CLOSE MODAL
+  ---------------------------------------------------------- */
+  const handleRedirect = (link) => {
+    navigate(link);
+    closeModal();
+  };
 
   return (
     <div className="w-full max-h-full flex flex-col gap-4 overFlow-x-none">
@@ -49,7 +66,7 @@ const SearchProducts = ({ searchRef, closeModal }) => {
           animate-fade-slide
         "
             style={{ animationDelay: `${idx * 0.05}s` }}
-            onClick={()=>handleRedirect(item.href)}
+            onClick={() => handleRedirect(item.href)}
           >
             {/* Image Wrapper */}
             <div
@@ -57,7 +74,8 @@ const SearchProducts = ({ searchRef, closeModal }) => {
           w-16 h-16 rounded-xl bg-gray-50 
           flex items-center justify-center overflow-hidden
           shadow-inner
-        ">
+        "
+            >
               <img
                 src={item.image}
                 alt={item.name}
