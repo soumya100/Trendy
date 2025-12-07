@@ -158,7 +158,7 @@ export default function Collection() {
           <img
             className={`h-3 transition-transform ${showFilter ? "rotate-90" : ""}`}
             src={assets.dropdown_icon}
-            alt=""
+            alt="dropdown-icon"
           />
         </p>
 
@@ -188,8 +188,8 @@ export default function Collection() {
         <div className="mb-4">
           <CustomInputField
             id="collectionSearch"
-            label="Search Products"
-            placeholder="Type to search..."
+            label={text.search.label}
+            placeholder={text.search.placeholder}
             value={searchProducts}
             onChange={(e) => setSearchProducts(e.target.value)}
             variant="filled"

@@ -79,5 +79,24 @@
     "formValidationErrors": {
         "required": "This field is required",
         "invalidEmail": "Please enter a valid email address"
-    }
+    },
+    "search":{
+        "label" : "Search Products",
+        "placeholder" : "Type to search..."
+    },
+    "productsNotFound": "No products found",
+    "close": "Close",
+    "product":{
+        "selectSize": "Select Size",
+        "nameNA": "Product Name Not Assigned",
+        "desc": "Description",
+        "addCart": "Add To Cart",
+        "originalText": "100% Original",
+        "cod": "Cash On Delivery Is Available In This Product",
+        "easyReturn": "Easy Return And Exchange Policy Within 7 Days",
+        "reviews": "Reviews",
+    "descSectionOne": "Experience the perfect blend of style, comfort, and durability with this premium-quality product. Crafted using high-grade materials, it offers a soft feel on the skin while ensuring long-lasting performance. Designed for everyday wear, this piece delivers breathability, flexibility, and a tailored fit that enhances your overall look. Whether you're styling it for casual outings or layering it for a refined appearance, this product is built to complement your lifestyle.",
+    "descSectionTwo": "The fabric is carefully selected to maintain color, shape, and texture even after multiple washes. With attention to detail in every stitch, this product reflects superior craftsmanship and modern fashion standards."
+    },
+    "notAvailable": "Not Available"
 }

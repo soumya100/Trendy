@@ -7,6 +7,7 @@ import Logo from "../common/Logo.jsx";
 import text from "../languages/en.json";
 import { useModal } from "../context/DialogContext.jsx";
 import SearchProducts from "./SearchProducts.jsx";
+import texts from '../languages/en.json'
 
 const NavBar = () => {
   const [scrolled, setScrolled] = React.useState(false);
@@ -46,7 +47,7 @@ const NavBar = () => {
   //search handler
   const openSearchModal = () => {
     openModal({
-      title: "Search Products",
+      title: texts.search.label,
       content: (
        <SearchProducts searchRef={searchRef} closeModal={closeModal}/>
       ),
@@ -55,7 +56,7 @@ const NavBar = () => {
           onClick={close}
           className="px-4 py-2 bg-black text-white rounded cursor-pointer"
         >
-          Close
+          {texts.close}
         </button>
       ),
       initialFocusRef: searchRef, 

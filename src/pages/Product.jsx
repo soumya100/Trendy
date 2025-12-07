@@ -1,11 +1,11 @@
-import React from 'react'
+import ProductIndex from "../components/Product";
 
 const Product = () => {
-  return (
-    <div>
-      
-    </div>
-  )
-}
+  
 
-export default Product
+  return(
+    <ProductIndex />
+  )
+};
+
+export default Product;

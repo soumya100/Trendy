@@ -3,6 +3,7 @@ import CustomInputField from "../common/InputSearchField";
 import { ShopContext } from "../context/ShopContext";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { searchData } from "../assets/assets";
+import text from '../languages/en.json'
 
 const SearchProducts = ({ searchRef, closeModal }) => {
   const { products } = useContext(ShopContext);
@@ -56,8 +57,8 @@ const SearchProducts = ({ searchRef, closeModal }) => {
       <CustomInputField
         inputRef={searchRef}
         id="searchBox"
-        label="Search"
-        placeholder="Search products..."
+        label={text.search.label}
+        placeholder={text.search.placeholder}
         autoFocus
         variant="filled"
         width="100%"
@@ -132,7 +133,7 @@ const SearchProducts = ({ searchRef, closeModal }) => {
         {/* ✅ NO MATCH */}
         {searchProducts.trim() && filteredProducts.length === 0 && (
           <p className="text-center text-gray-500 py-10">
-            No products found
+            {text.productsNotFound}
           </p>
         )}
       </div>
