@@ -740,7 +740,7 @@ export const searchData=[
     href: '/collection',
    },
    {
-    image: products[getImageIndex('category','men')].image[1],
+    image: products[getImageIndex('category','men')].image,
     name: `${text.categoriesinnotfoundpage.men} ${text.navbarmenu.collections}`,
     href: '/collection?category=men'
    },

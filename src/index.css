@@ -45,20 +45,29 @@ a.active p{
 
 .btn-53 {
   -webkit-tap-highlight-color: transparent;
-  -webkit-appearance: button;
+
+  appearance: button;              /* ✅ FIXED */
+  -webkit-appearance: button;      /* ✅ FIXED */
+
   background-color: #000;
   background-image: none;
   color: #fff;
   cursor: pointer;
+
   font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
     Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif,
     Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
+
   font-size: 100%;
   line-height: 1.5;
   margin: 0;
-  -webkit-mask-image: -webkit-radial-gradient(#000, #fff);
+
+  mask-image: radial-gradient(#000, #fff);                 /* ✅ FIXED */
+  -webkit-mask-image: -webkit-radial-gradient(#000, #fff); /* ✅ FIXED */
+
   padding: 0;
 }
+
 
 .btn-53:disabled {
   cursor: default;
@@ -69,9 +78,9 @@ a.active p{
 }
 
 .btn-53 svg {
-  display: block;
-  vertical-align: middle;
+  display: block;   /* ✅ FIXED */
 }
+
 
 .btn-53 [hidden] {
   display: none;

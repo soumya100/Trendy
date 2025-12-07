@@ -1,8 +1,8 @@
-import { useContext, useState, useEffect } from "react";
-import { searchData } from "../assets/assets";
+import { useContext, useState, useEffect, useMemo } from "react";
 import CustomInputField from "../common/InputSearchField";
 import { ShopContext } from "../context/ShopContext";
 import { useNavigate, useSearchParams } from "react-router-dom";
+import { searchData } from "../assets/assets";
 
 const SearchProducts = ({ searchRef, closeModal }) => {
   const { products } = useContext(ShopContext);
@@ -24,75 +24,117 @@ const SearchProducts = ({ searchRef, closeModal }) => {
   const handleChange = (e) => {
     const value = e.target.value;
     setSearchProducts(value);
-
-    // (Optional) LIVE sync search into URL without redirecting:
-    // navigate(`?search=${value}`, { replace: true });
   };
 
   /* ----------------------------------------------------------
-      REDIRECT TO URL AND CLOSE MODAL
+      FILTER PRODUCTS LIVE
+  ---------------------------------------------------------- */
+  const filteredProducts = useMemo(() => {
+    if (!searchProducts.trim()) return [];
+
+    return products.filter((item) =>
+      item.name.toLowerCase().includes(searchProducts.toLowerCase())
+    );
+  }, [searchProducts, products]);
+
+  /* ----------------------------------------------------------
+      REDIRECT HANDLER
   ---------------------------------------------------------- */
   const handleRedirect = (link) => {
     navigate(link);
     closeModal();
   };
 
+  const handleProductRedirect = (id) => {
+    navigate(`/product/${id}`);
+    closeModal();
+  };
+
   return (
-    <div className="w-full max-h-full flex flex-col gap-4 overFlow-x-none">
+    <div className="w-full max-h-full flex flex-col gap-4 overflow-x-hidden">
+      {/* ✅ SEARCH INPUT */}
       <CustomInputField
+        inputRef={searchRef}
         id="searchBox"
         label="Search"
-        placeholder="Search..."
-        inputRef={searchRef}
+        placeholder="Search products..."
         autoFocus
         variant="filled"
         width="100%"
         value={searchProducts}
         onChange={handleChange}
+        className="p-2"
       />
 
-      {/* Animated List */}
-      <div className="overflow-y-auto max-h-[450px] pr-1 space-y-4 overflow-x-hidden">
-        {searchData.map((item, idx) => (
-          <div
-            key={idx}
-            className="
-          flex items-center gap-5 p-4 rounded-2xl cursor-pointer
-          bg-white/70 backdrop-blur-sm border border-gray-200
-          shadow-[0_4px_20px_rgba(0,0,0,0.05)]
-          hover:shadow-[0_8px_28px_rgba(0,0,0,0.10)]
-          transition-all duration-300 ease-out transform 
-          hover:scale-[1.02] hover:bg-white
-          animate-fade-slide
-        "
-            style={{ animationDelay: `${idx * 0.05}s` }}
-            onClick={() => handleRedirect(item.href)}
-          >
-            {/* Image Wrapper */}
-            <div
-              className="
-          w-16 h-16 rounded-xl bg-gray-50 
-          flex items-center justify-center overflow-hidden
-          shadow-inner
-        "
-            >
-              <img
-                src={item.image}
-                alt={item.name}
-                className="
-              max-w-full max-h-full object-contain
-              transition-transform duration-300
-              group-hover:scale-110
-            "
-              />
-            </div>
+      {/* ✅ RESULTS */}
+      <div className="overflow-y-auto max-h-[420px] pr-1 space-y-4">
 
-            {/* Text */}
-            <p className="text-lg font-semibold text-gray-800 tracking-wide">
-              {item.name}
-            </p>
-          </div>
-        ))}
+        {/* ✅ IF USER IS TYPING → SHOW PRODUCTS */}
+        {searchProducts.trim() &&
+          filteredProducts.map((item, idx) => (
+            <div
+              key={item._id}
+              className="
+                flex items-center gap-5 p-4 rounded-2xl cursor-pointer
+                bg-white/70 backdrop-blur-sm border border-gray-200
+                shadow-[0_4px_20px_rgba(0,0,0,0.05)]
+                hover:shadow-[0_8px_28px_rgba(0,0,0,0.10)]
+                transition-all duration-300 ease-out transform 
+                hover:scale-[1.02]
+              "
+              onClick={() => handleProductRedirect(item._id)}
+            >
+              <div className="w-16 h-16 rounded-xl bg-gray-50 flex items-center justify-center overflow-hidden">
+                <img
+                  src={item.image?.[0]}
+                  alt={item.name}
+                  className="max-w-full max-h-full object-contain"
+                />
+              </div>
+
+              <div className="flex flex-col">
+                <p className="text-lg font-semibold text-gray-800">
+                  {item.name}
+                </p>
+                <p className="text-sm text-gray-500">₹{item.price}</p>
+              </div>
+            </div>
+          ))}
+
+        {/* ✅ IF EMPTY SEARCH → SHOW QUICK LINKS */}
+        {!searchProducts.trim() &&
+          searchData.map((item, idx) => (
+            <div
+              key={idx}
+              className="
+                flex items-center gap-5 p-4 rounded-2xl cursor-pointer
+                bg-white/70 backdrop-blur-sm border border-gray-200
+                shadow-[0_4px_20px_rgba(0,0,0,0.05)]
+                hover:shadow-[0_8px_28px_rgba(0,0,0,0.10)]
+                transition-all duration-300 ease-out
+              "
+              onClick={() => handleRedirect(item.href)}
+            >
+              <div className="w-16 h-16 rounded-xl bg-gray-50 flex items-center justify-center overflow-hidden">
+                <img
+                  src={item.image?.[0]}
+                  alt={item.name}
+                  className="max-w-full max-h-full object-contain"
+                />
+              </div>
+
+              <p className="text-lg font-semibold text-gray-800">
+                {item.name}
+              </p>
+            </div>
+          ))}
+
+        {/* ✅ NO MATCH */}
+        {searchProducts.trim() && filteredProducts.length === 0 && (
+          <p className="text-center text-gray-500 py-10">
+            No products found
+          </p>
+        )}
       </div>
     </div>
   );
