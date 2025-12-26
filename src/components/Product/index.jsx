@@ -168,9 +168,9 @@ const ProductIndex = () => {
         </div>
       </div>
 
-      {/*--------------------------
+      {/*--------------------------------
             Description & Review Section 
-            ---------------------------*/}
+        ---------------------------------*/}
       <div className="mt-20">
         <div className="flex">
           <b className="border px-5 py-3 text-sm">{texts.product.desc}</b>
@@ -179,15 +179,18 @@ const ProductIndex = () => {
           </p>
         </div>
         <div className="flex flex-col gap-4 border p-6 text-sm text-gray-500">
-            <p>
-                {texts.product.descSectionOne}
-            </p>
-            <p>
-                {texts.product.descSectionTwo}
-            </p>
+          <p>{texts.product.descSectionOne}</p>
+          <p>{texts.product.descSectionTwo}</p>
         </div>
       </div>
+      {/* --------------------------------
+            DISPLAY RELATED PRODUCTS
+      ------------------------------------*/}
+
+        
+
     </div>
+
   ) : (
     <div className="opacity-0"></div>
   );

@@ -1,9 +1,9 @@
 import { useContext, useState, useEffect, useMemo } from "react";
-import CustomInputField from "../common/InputSearchField";
 import { ShopContext } from "../context/ShopContext";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { searchData } from "../assets/assets";
 import text from '../languages/en.json'
+import InputSearchField from "../common/InputSearchField";
 
 const SearchProducts = ({ searchRef, closeModal }) => {
   const { products } = useContext(ShopContext);
@@ -54,7 +54,7 @@ const SearchProducts = ({ searchRef, closeModal }) => {
   return (
     <div className="w-full max-h-full flex flex-col gap-4 overflow-x-hidden">
       {/* ✅ SEARCH INPUT */}
-      <CustomInputField
+      <InputSearchField
         inputRef={searchRef}
         id="searchBox"
         label={text.search.label}

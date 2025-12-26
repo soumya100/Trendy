@@ -1,5 +1,5 @@
 /*
-CustomInputField.jsx
+InputSearchField.jsx
 A highly customizable input component built with Tailwind CSS.
 
 Features:
@@ -10,7 +10,7 @@ Features:
 - System design: separation of presentation (Tailwind) and behavior (React)
 
 Usage Example:
-<CustomInputField
+<InputSearchField
   label="Username"
   value={username}
   onChange={(e) => setUsername(e.target.value)}
@@ -26,7 +26,7 @@ Usage Example:
 import React, { useState, useEffect, useRef } from 'react'
 import clsx from 'clsx'
 
-export default function CustomInputField({
+export default function InputSearchField({
   id,
   name,
   label = '',
